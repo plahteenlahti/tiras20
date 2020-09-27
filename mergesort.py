@@ -1,41 +1,38 @@
 import random
 
-n = 10**3
+n = 10**5
 list = []
 for i in range(n):
 	list.append(random.randrange(1,20,1))
 
+print(list)
 
-middleIndex = len(list)//2
+def mergeSort(values):
+	if len(values)>1:
 
-aList = list[:middleIndex]
-bList = list[middleIndex:]
+		m = len(values)//2
+		left = values[:m] 
+		right = values[m:] 
+		left = mergeSort(left) 
+		right = mergeSort(right) 
 
-help = [None] * len(list)
+		values =[] 
 
+		while len(left)>0 and len(right)>0: 
+				if left[0]<right[0]: 
+					values.append(left[0]) 
+					left.pop(0) 
+				else: 
+						values.append(right[0]) 
+						right.pop(0) 
 
-def sort(a,b):
-	if a == b:
-		return
-	k = (a+b)//2
-	index = (len(a) + len(b))//2
-	sort(a,k)
-	sort(k+1,b)
-	merge(a,k,k+1,b)
+		for i in left: 
+				values.append(i) 
+		for i in right: 
+				values.append(i) 
+									
+	return values
 
+list = mergeSort(list)
 
-def merge(a1, b1, a2, b2):
-	a = a1, b = b2
-	for i in range(a,b):
-		if a2 > b2 or (a1 <= b1 and list[a1] <= list[a2]):
-			help[i] = list[a1]
-			a1 += 1
-		else:
-			help[i] = list[a2]
-			a2 += 1
-	for i in range(a,b):
-		list[i] = help[i]
-
-
-
-sort(aList,bList)
+print(list)
