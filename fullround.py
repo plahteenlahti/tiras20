@@ -2,8 +2,13 @@ from collections import deque
 
 def count(n):
 	steps = n // 2
-	twoSteps = (n -1)// 2
+	twoSteps = (n +1)// 2
+
+	if(n % 2 == 0):
+		return steps + twoSteps
 	return steps *twoSteps
+
+	# return steps *twoSteps
 
 
 
@@ -21,7 +26,7 @@ if __name__ == "__main__":
 
 
 
-66
+
 	# 1 2 3 4 5 6
 	# 3 4 5 6 2 1
 	# 5 6 2 1 4 3
