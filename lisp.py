@@ -1,41 +1,40 @@
 from collections import deque
 
-def operate(operation, value, current):
-	endResult = 0
-	if operation == "*":
-		endResult = current * value
-	else:	
-		endResult = current + value
-
-	return endResult
-
-
 def eval(s):
-	result = 0
-	operation = ''
-	operations = deque()
-	print(s)
-	for i in range(len(s)-1, 0, -1):
-		c = s[i]
-		if(c == '('):
-			print(operation)
-			result = operate(operation, eval(s[i:]), result)
-			print('recursion result',result)
-		elif(c =='+'):	
-			operation = '+'
-		elif(c =='*'):
-			operation = '*'
-		elif(c == ')'):
-			print('break',s)
-			break
-		elif(c == ' '):
-			continue
-		else: 
-			value = int(c)
-			result = operate(operation, value, result)
-		
+	spaced = s.replace('(', ' ( ')
+	spaced = spaced.replace(')', ' ) ')
+	splitted = spaced.split()
 
-	return result
+	values = deque()
+	count = deque()
+	for c in splitted: 
+		if(c == '('):
+			continue
+		elif(c == ')'):
+			i = len(values)-1
+			while i >= 0:
+				print(values,count)
+				if(values[i] == '*'):
+					values.pop()
+					res = 1
+					for x in count:
+						res = res * x
+					values.append(res)
+					count.clear()
+					break
+				elif(values[i] == '+'):
+					values.pop()
+					values.append(sum(count))
+					count.clear()
+					break
+				else: 
+					val = values.pop()
+					count.append(int(val))
+				i -= 1
+		else: 
+			values.append(c)
+
+	return values[0]
 
 if __name__ == "__main__":
 	print('result',eval("(+ 1 2 3 4 5)")) # 15
