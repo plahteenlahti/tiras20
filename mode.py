@@ -1,12 +1,21 @@
 class Mode:
 	def __init__(self):
 		self.d = {}
-		self.smallest = 0
+		self.mode = 0
+		self.modeRef = 0
 	
 	def add(self, x): 
 		self.d[x] = self.d[x] +1 if x in self.d else  1
 
-		return max(self.d, key=self.d.get)
+
+
+		if(self.d[x] > self.mode): 
+			self.modeRef = x
+			self.mode = self.d[x]
+		elif(self.d[x] == self.mode and self.modeRef > x):
+			self.modeRef = x
+			self.mode = self.d[x]
+		return self.modeRef
 			
 
 if __name__ == "__main__":
