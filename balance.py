@@ -1,30 +1,18 @@
 def count(s):
-	abc = {'A':0,'B':0,'C':0}
-	neg = {'A':0,'B':0,'C':0}
-	count = 0
+    count = [0]*3
+    history = {}
+    history[(0,0)] = 1
+    result = 0
+    for c in s:
+        count[ord(c)-65] += 1
+        diffs = (count[0]-count[1],count[0]-count[2])
+        result += history.get(diffs,0)
+        history[diffs] = history.get(diffs,0)+1
+    return result
 
-	for i in range(len(s)):		
-		abc[s[i]] += 1
-		neg[s[i]] += 1
-
-		if abc['A'] == abc['B'] == abc['C']:
-			count += count + 1
-
-		if neg[s[i]] > 1:
-			neg[s[i]] -= 1
-
-		if neg['A'] == neg['B'] == neg['C']:
-			print(neg)
-			count = count + 1
-
-	
-
-
-	# print(abc,neg)
-	return count
 
 if __name__ == "__main__":
-	print(count("CCAABB"),f'{count("CCAABB") == 1}') # 1
-	print(count("CBACBA"),f'{count("CBACBA") == 5}') # 5
-	print(count("AAABBC"),f'{count("AAABBC") == 0}') # 0
-	print(count("CCBCCCABB"),f'{count("CCBCCCABB") == 1}') # 1
+	print(count("CCAABB")) # 1
+	print(count("CBACBA"),count("CBACBA") == 5) # 5
+	print(count("AAABBC")) # 0
+	print(count("CCBCCCABB")) # 1
