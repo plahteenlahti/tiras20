@@ -1,9 +1,19 @@
 from collections import namedtuple
 
+
+
+
+
 def count(node):
-	if not node.left and node.right:
+	
+	if node == None:
+		return 0
+	if node.left == None and node.right == None:
 		return 1
-	return count(node.left)+count(node.right) 
+	else:
+		return count(node.left) + count(node.right) 
+
+
 
 if __name__ == "__main__":
 	Node = namedtuple("Node",["left","right"])
