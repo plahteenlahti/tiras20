@@ -1,9 +1,5 @@
 from collections import namedtuple
 
-
-
-
-
 def count(node):
 	
 	if node == None:
