@@ -13,18 +13,15 @@ class QuickAdd:
 			x, k = heappop(self.l)
 
 			if k - removeK == 0:
-				print('if',x,removeK,sum)
 				sum += x * removeK
-				break
+				removeK = 0
 
 			elif k - removeK > 0:
-				print('elif',x,removeK,sum)
 				sum += x * removeK
 				heappush(self.l, (x, k - removeK))
-				break
+				removeK = 0
 
 			else:
-				print('else',x,removeK,sum)
 				sum += x * k
 				removeK -= k
 		
