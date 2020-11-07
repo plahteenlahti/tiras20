@@ -1,16 +1,25 @@
-def anagram(word, length, result):
-	if len(word) == length:
-		result.append(word)
+def anagram(word,place, anagrams,included,characters):
+	if len(word) == place:
+		anagrams.add("".join(characters))	 
 	else:
-		for perm in anagram(word[1:]):
-			for i in range(len(word)):
-					result.append(perm[:i] + word[0:1] + perm[i:])
+		for i in range(0,len(word)):
+			if not included[i]:
+				included[i] = True
+				characters[place] = word[i]
+				anagram(word,place+1,anagrams,included,characters)
+				included[i] = False
+	return list(anagrams)
+
+		
 
 
 def create(s):
-	result = []
-	anagram("", s, result)
-	return result
+	anagrams = set()
+	included = [False] * len(s)
+	characters = [0] * len(s)
+	place = 0
+	anagram(s, place, anagrams,included,characters)
+	return anagrams
 
 if __name__ == "__main__":
 	print(create("ab")) # [ab,ba]
